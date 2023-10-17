@@ -1,4 +1,5 @@
 import 'package:expensee/auth/signin_view.dart';
+import 'package:expensee/auth/signup_verification_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 
@@ -203,7 +204,7 @@ class _SignupViewState extends State<SignupView> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SigninView(),
+                          builder: (context) => SignUpVerificationView(),
                         ),
                       );
                     }

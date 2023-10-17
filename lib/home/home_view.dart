@@ -1,9 +1,7 @@
-import 'dart:math';
-
-import 'package:expensee/widgets/dropdown_widget.dart';
+import 'package:expensee/widgets/months_dropdown_widget.dart';
 import 'package:expensee/widgets/line_chart_view.dart';
+import 'package:expensee/widgets/transaction_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -12,65 +10,67 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  double angle = pi * (3 / 4);
-  double turns = 0;
+class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
+  // double angle = pi * (3 / 4);
+  // double turns = 0;
+
+  // late final TabController _tabController;
+
+  int _bottomNavIndex = 0;
+
+  List<IconData> iconList = [
+    Icons.home_rounded,
+    Icons.compare_arrows_rounded,
+    Icons.pie_chart_rounded,
+    Icons.account_circle,
+  ];
+
+  static const _actionTitles = ['Create Post', 'Upload Photo', 'Upload Video'];
+
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(_actionTitles[index]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // _tabController = TabController(length: 3, vsync: this);
+  }
+
+  // @override
+  // void dispose() {
+  //   _tabController.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.access_time,
-              color: Colors.grey,
-            ),
-            label: "hello",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessibility_outlined,
-              color: Colors.grey,
-            ),
-            label: "hello",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-              color: Colors.grey,
-            ),
-            label: "hello",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.ac_unit_outlined,
-              color: Colors.grey,
-            ),
-            label: "hello",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.access_alarm_rounded,
-              color: Colors.grey,
-            ),
-            label: "hello",
-          ),
-        ],
-      ),
-      // floatingActionButton: ExpandableFab(
-      //   children: [
-      //     FloatingActionButton.small(
-      //       heroTag: null,
-      //       child: const Icon(Icons.edit),
-      //       onPressed: () {},
-      //     ),
-      //     FloatingActionButton.small(
-      //       heroTag: null,
-      //       child: const Icon(Icons.search),
-      //       onPressed: () {},
-      //     ),
-      //   ],
+      // FloatingActionButton(
+      //   shape: const CircleBorder(),
+      //   onPressed: () {},
+      //   elevation: 0,
+      //   backgroundColor: Colors.deepPurpleAccent,
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //     size: 36,
+      //   ),
       // ),
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -87,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
                         color: Colors.deepPurpleAccent,
                       ),
                     ),
-                    DropDownWidget(),
+                    const MonthsDropDownWidget(),
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
@@ -218,16 +218,116 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 const LineChartSample2(),
-                const Row(
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber[50],
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Today",
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // backgroundColor: Colors.amber[50],
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Week",
+                        style: TextStyle(
+                          // color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // backgroundColor: Colors.amber[50],
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Month",
+                        style: TextStyle(
+                          // color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // backgroundColor: Colors.amber[50],
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Year",
+                        style: TextStyle(
+                          // color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
                       "Recent Transaction",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "See All",
+                        style: TextStyle(
+                          color: Colors.deepPurpleAccent,
+                        ),
+                      ),
+                    ),
                   ],
+                ),
+                // TransactionItemWidget(
+                //   image: "assets/googleIcon.png",
+                //   title: "Shopping",
+                //   subtitle: "Buy some grocery",
+                //   price: "-\$120",
+                //   time: "10:00",
+                // ),
+
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  // primary: false,
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return const TransactionItemWidget(
+                      image: "assets/googleIcon.png",
+                      title: "Shopping",
+                      subtitle: "Buy some grocery",
+                      price: "-\$120",
+                      time: "10:00",
+                    );
+                  },
                 ),
               ],
             ),

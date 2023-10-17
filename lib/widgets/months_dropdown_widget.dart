@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DropDownWidget extends StatefulWidget {
-  DropDownWidget({super.key});
+class MonthsDropDownWidget extends StatefulWidget {
+  const MonthsDropDownWidget({super.key});
 
   @override
-  State<DropDownWidget> createState() => _DropDownWidgetState();
+  State<MonthsDropDownWidget> createState() => _MonthsDropDownWidgetState();
 }
 
-class _DropDownWidgetState extends State<DropDownWidget> {
+class _MonthsDropDownWidgetState extends State<MonthsDropDownWidget> {
   List<String> monthsList = <String>[
     'January',
     'February',

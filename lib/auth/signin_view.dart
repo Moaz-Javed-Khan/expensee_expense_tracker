@@ -2,6 +2,7 @@ import 'package:expensee/auth/forget_password_view.dart';
 import 'package:expensee/auth/signup_view.dart';
 import 'package:expensee/home/home_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
+import 'package:expensee/widgets/bottom_navigatgion_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class SigninView extends StatefulWidget {
@@ -133,7 +134,8 @@ class _SigninViewState extends State<SigninView> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const HomeView(),
+                          builder: (context) =>
+                              const BottomNavigatgionBarWidget(),
                         ),
                       );
                     }

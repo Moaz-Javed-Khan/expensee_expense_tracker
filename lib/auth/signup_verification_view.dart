@@ -1,18 +1,37 @@
 import 'dart:async';
 import 'package:expensee/auth/signin_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
-import 'package:expensee/widgets/verification_code_dots_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignUpVerificationView extends StatefulWidget {
-  SignUpVerificationView({super.key});
+  const SignUpVerificationView({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  final String name;
+  final String email;
+  final String password;
 
   @override
   State<SignUpVerificationView> createState() => _SignUpVerificationViewState();
 }
 
 class _SignUpVerificationViewState extends State<SignUpVerificationView> {
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController _verificationCodeController =
+      TextEditingController();
+
+  final List<String> _verificationCode = List.filled(6, '.');
+
+  void _onVerificationCodeChanged(String value) {
+    setState(() {
+      for (int i = 0; i < value.length; i++) {
+        _verificationCode[i] = value[i];
+      }
+    });
+  }
 
   final _key = GlobalKey<FormState>();
 
@@ -32,6 +51,7 @@ class _SignUpVerificationViewState extends State<SignUpVerificationView> {
       final seconds = myDuration.inSeconds - reduceSecondsBy;
       if (seconds < 0) {
         countdownTimer!.cancel();
+        Navigator.pop(context);
       } else {
         myDuration = Duration(seconds: seconds);
       }
@@ -46,6 +66,13 @@ class _SignUpVerificationViewState extends State<SignUpVerificationView> {
 
   @override
   Widget build(BuildContext context) {
+    var emailfirstHalf = widget.email.split("@");
+    var encryptedEmail = widget.email.replaceRange(
+      2,
+      emailfirstHalf[0].length,
+      "*" * (emailfirstHalf[0].length - 1),
+    );
+
     String strDigits(int n) => n.toString().padLeft(2, '0');
     final days = strDigits(myDuration.inDays);
 
@@ -64,93 +91,116 @@ class _SignUpVerificationViewState extends State<SignUpVerificationView> {
           right: 8.0,
           left: 8.0,
         ),
-        child: Form(
-          key: _key,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              const Text(
-                "Enter your\nVerification Code",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  overflow: TextOverflow.clip,
-                ),
-              ),
-              const SizedBox(height: 20),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _key,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Name: ${widget.name}"),
+                Text("Email: ${widget.email}"),
+                Text("Pasword: ${widget.password}"),
 
-              // code
-              CustomCodeInput(),
-
-              const SizedBox(height: 20),
-              Text(
-                '$hours:$minutes:$seconds',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurpleAccent,
-                  // fontSize: 50,
-                ),
-              ),
-              const SizedBox(height: 12),
-              RichText(
-                text: const TextSpan(
-                  text: 'We send verification code to your email ',
+                const SizedBox(height: 20),
+                const Text(
+                  "Enter your\nVerification Code",
                   style: TextStyle(
-                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    overflow: TextOverflow.clip,
                   ),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'm***@mail.com. ',
-                        style: TextStyle(
-                          color: Colors.deepPurpleAccent,
-                        )),
-                    TextSpan(text: 'You can chech your inbox'),
-                  ],
                 ),
-              ),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => (),
-                    //   ),
-                    // );
-                  },
-                  child: const Text(
-                    "I didn't received the code? Send again",
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
+                const SizedBox(height: 20),
+
+                // const CustomCodeInput(),
+
+                TextField(
+                  cursorColor: Colors.transparent,
+                  cursorWidth: 0,
+                  cursorHeight: 0,
+                  style: const TextStyle(fontSize: 28),
+                  controller: _verificationCodeController,
+                  maxLength: 6,
+                  onChanged: _onVerificationCodeChanged,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: '● ● ● ● ● ●',
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Text(
+                  '$hours:$minutes:$seconds',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurpleAccent,
+                    // fontSize: 50,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                RichText(
+                  text: TextSpan(
+                    text: 'We send verification code to your email ',
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: '$encryptedEmail ',
+                          style: const TextStyle(
+                            color: Colors.deepPurpleAccent,
+                          )),
+                      const TextSpan(text: 'You can chech your inbox'),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => (),
+                      //   ),
+                      // );
+                    },
+                    child: const Text(
+                      "I didn't received the code? Send again",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              CustomButton(
-                color: Colors.deepPurpleAccent,
-                onClick: () {
-                  if (_key.currentState!.validate()) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SigninView(),
-                      ),
-                    );
-                  }
-                },
-                title: const Text(
-                  "Verify",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 20),
+                CustomButton(
+                  color: Colors.deepPurpleAccent,
+                  onClick: () {
+                    if (_key.currentState!.validate()) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SigninView(),
+                        ),
+                      );
+                    }
+                  },
+                  title: const Text(
+                    "Verify",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

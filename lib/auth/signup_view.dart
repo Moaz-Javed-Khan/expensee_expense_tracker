@@ -200,11 +200,28 @@ class _SignupViewState extends State<SignupView> {
                 CustomButton(
                   color: Colors.deepPurpleAccent,
                   onClick: () {
-                    if (_key.currentState!.validate()) {
-                      Navigator.pushReplacement(
+                    if (!isCheckedTerms) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Agree with Terms of Service and Privacy Policy",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          backgroundColor: Colors.deepPurpleAccent,
+                        ),
+                      );
+                    }
+                    if (_key.currentState!.validate() && isCheckedTerms) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUpVerificationView(),
+                          builder: (context) => SignUpVerificationView(
+                            name: nameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                          ),
                         ),
                       );
                     }

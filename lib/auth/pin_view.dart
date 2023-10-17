@@ -10,7 +10,7 @@ class PinView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Let's setup your PIN",
+          "Enter your PIN",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

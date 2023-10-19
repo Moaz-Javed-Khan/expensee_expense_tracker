@@ -1,4 +1,4 @@
-import 'package:expensee/auth/create_new_password_view.dart';
+import 'package:expensee/features/auth/createNewPassword/create_new_password_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 

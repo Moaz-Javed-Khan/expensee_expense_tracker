@@ -1,9 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:expensee/expense/expense_view.dart';
-import 'package:expensee/home/home_view.dart';
-import 'package:expensee/income/income_view.dart';
-import 'package:expensee/profile/profile_view.dart';
-import 'package:expensee/transfer/transfer_view.dart';
+import 'package:expensee/features/expense/expense_view.dart';
+import 'package:expensee/features/home/home_view.dart';
+import 'package:expensee/features/income/income_view.dart';
+import 'package:expensee/features/profile/profile_view.dart';
+import 'package:expensee/features/transfer/transfer_view.dart';
 import 'package:expensee/widgets/expandable_fab.dart';
 import 'package:flutter/material.dart';
 

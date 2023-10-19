@@ -1,4 +1,4 @@
-import 'package:expensee/onBoarding/on_boarding_content.dart';
+import 'package:expensee/features/onBoarding/on_boarding_content.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 

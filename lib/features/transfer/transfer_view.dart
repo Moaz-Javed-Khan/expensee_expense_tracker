@@ -1,5 +1,4 @@
 import 'package:expensee/widgets/CutomButton.dart';
-import 'package:expensee/widgets/categories_dropdown_widget.dart';
 import 'package:flutter/material.dart';
 
 class TransferView extends StatefulWidget {

@@ -1,23 +1,24 @@
-import 'package:expensee/onBoarding/on_boarding_1.dart';
-import 'package:expensee/onBoarding/on_boarding_3.dart';
+import 'package:expensee/features/auth/signin/signin_view.dart';
+import 'package:expensee/features/onBoarding/on_boarding_1.dart';
+import 'package:expensee/features/onBoarding/on_boarding_2.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 
-class OnBoarding2 extends StatefulWidget {
-  const OnBoarding2({super.key});
+class OnBoarding3 extends StatefulWidget {
+  const OnBoarding3({super.key});
 
   @override
-  State<OnBoarding2> createState() => _OnBoarding2State();
+  State<OnBoarding3> createState() => _OnBoarding3State();
 }
 
-class _OnBoarding2State extends State<OnBoarding2> {
+class _OnBoarding3State extends State<OnBoarding3> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const OnBoarding3(),
+          builder: (context) => SigninView(),
         ),
       );
     });
@@ -38,12 +39,12 @@ class _OnBoarding2State extends State<OnBoarding2> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Image.asset(
-              "assets/onBoarding2.png",
+              "assets/onBoarding3.png",
               height: 300,
             ),
             const SizedBox(height: 12),
             const Text(
-              "Know where your\nmoney goes",
+              "Planning\nahead",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -76,29 +77,29 @@ class _OnBoarding2State extends State<OnBoarding2> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Hero(
-                  tag: "purpleDot2",
-                  child: CircleAvatar(
-                    backgroundColor: Colors.deepPurpleAccent,
-                    radius: 8,
-                  ),
-                ),
-                const SizedBox(width: 4),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const OnBoarding3(),
+                        builder: (context) => const OnBoarding2(),
                       ),
                     );
                   },
                   child: Hero(
-                    tag: "purpleDot3",
+                    tag: "purpleDot2",
                     child: CircleAvatar(
                       backgroundColor: Colors.deepPurple[50],
                       radius: 6,
                     ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Hero(
+                  tag: "purpleDot3",
+                  child: CircleAvatar(
+                    backgroundColor: Colors.deepPurpleAccent,
+                    radius: 8,
                   ),
                 ),
               ],

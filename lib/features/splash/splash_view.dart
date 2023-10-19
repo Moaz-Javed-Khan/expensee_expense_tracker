@@ -1,4 +1,4 @@
-import 'package:expensee/auth/pin_view.dart';
+import 'package:expensee/features/auth/pin/pin_view.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {

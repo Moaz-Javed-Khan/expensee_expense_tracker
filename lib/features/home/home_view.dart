@@ -16,7 +16,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   // late final TabController _tabController;
 
-  int _bottomNavIndex = 0;
+  // int _bottomNavIndex = 0;
 
   List<IconData> iconList = [
     Icons.home_rounded,

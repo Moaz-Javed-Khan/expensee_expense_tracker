@@ -1,4 +1,4 @@
-import 'package:expensee/auth/signup_view.dart';
+import 'package:expensee/features/auth/signup/signup_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 

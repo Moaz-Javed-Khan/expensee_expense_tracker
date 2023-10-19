@@ -1,5 +1,5 @@
-import 'package:expensee/auth/signin_view.dart';
-import 'package:expensee/auth/signup_view.dart';
+import 'package:expensee/features/auth/signin/signin_view.dart';
+import 'package:expensee/features/auth/signup/signup_view.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:expensee/onBoarding/on_boarding_1.dart';
+import 'package:expensee/features/onBoarding/on_boarding_1.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_lock_screen/pin_lock_screen.dart';
 

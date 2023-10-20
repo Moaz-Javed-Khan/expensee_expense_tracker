@@ -3,7 +3,7 @@ import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordView extends StatefulWidget {
-  ForgetPasswordView({super.key});
+  const ForgetPasswordView({super.key});
 
   @override
   State<ForgetPasswordView> createState() => _ForgetPasswordViewState();
@@ -86,7 +86,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CreateNewPasswordView(),
+                        builder: (context) => const CreateNewPasswordView(),
                       ),
                     );
                   }

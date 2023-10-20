@@ -1,4 +1,7 @@
-import 'package:expensee/features/auth/signup/signup_view.dart';
+import 'package:expensee/features/auth/signup/data/datasources/get_otp_remote_datasource.dart';
+import 'package:expensee/features/auth/signup/data/repositories/GetOtpRepositoryImple.dart';
+import 'package:expensee/features/auth/signup/presentation/bloc/get_otp_bloc.dart';
+import 'package:expensee/features/auth/signup/presentation/screen/signup_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +53,13 @@ class _EmailSentViewState extends State<EmailSentView> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SignupView(),
+                    builder: (context) => SignupView(
+                      getOtpBloc: GetOtpBloc(
+                        getOtpRepo: GetOtpRepositoryImple(
+                          remotedatasources: GetOtpRemoteDatasourceImpl(),
+                        ),
+                      ),
+                    ),
                   ),
                 );
               },

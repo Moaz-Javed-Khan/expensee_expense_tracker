@@ -5,14 +5,17 @@ class ProfileItemWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.icon,
+    required this.onTap,
   });
 
   final String title;
   final IconData icon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       contentPadding: const EdgeInsets.all(8.0),
       leading: Container(
         decoration: BoxDecoration(

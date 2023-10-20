@@ -81,7 +81,7 @@ Widget customButton(String btnVal) {
     child: OutlinedButton(
       // padding: EdgeInsets.all(25.0),
       style: OutlinedButton.styleFrom(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
       ),
       onPressed: () {
         Navigator.pop;

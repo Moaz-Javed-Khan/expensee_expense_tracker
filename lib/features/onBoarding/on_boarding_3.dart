@@ -1,4 +1,5 @@
-import 'package:expensee/features/auth/signin/signin_view.dart';
+import 'package:expensee/features/auth/signin/Presentation/bloc/login_bloc.dart';
+import 'package:expensee/features/auth/signin/Presentation/screens/signin_view.dart';
 import 'package:expensee/features/onBoarding/on_boarding_1.dart';
 import 'package:expensee/features/onBoarding/on_boarding_2.dart';
 import 'package:expensee/widgets/CutomButton.dart';
@@ -18,7 +19,9 @@ class _OnBoarding3State extends State<OnBoarding3> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => SigninView(),
+          builder: (context) => SigninView(
+            loginBloc: LoginBloc(),
+          ),
         ),
       );
     });

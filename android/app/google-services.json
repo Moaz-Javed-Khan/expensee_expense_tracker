@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "685631498838",
+    "firebase_url": "https://job-test-b793d-default-rtdb.firebaseio.com",
+    "project_id": "job-test-b793d",
+    "storage_bucket": "job-test-b793d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685631498838:android:7fe835e1ab83a24f9aa9f7",
+        "android_client_info": {
+          "package_name": "com.example.expensee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685631498838-a4qe43uq4bcgbk65uqin2f1c13e56gj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQvct9HTV-KvU9cgHtBKFGK2gcX7y1B7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685631498838-a4qe43uq4bcgbk65uqin2f1c13e56gj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

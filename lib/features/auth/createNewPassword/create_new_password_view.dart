@@ -1,9 +1,10 @@
-import 'package:expensee/features/auth/signin/signin_view.dart';
+import 'package:expensee/features/auth/signin/Presentation/bloc/login_bloc.dart';
+import 'package:expensee/features/auth/signin/Presentation/screens/signin_view.dart';
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
 
 class CreateNewPasswordView extends StatefulWidget {
-  CreateNewPasswordView({super.key});
+  const CreateNewPasswordView({super.key});
 
   @override
   State<CreateNewPasswordView> createState() => _CreateNewPasswordViewState();
@@ -114,7 +115,9 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SigninView(),
+                        builder: (context) => SigninView(
+                          loginBloc: LoginBloc(),
+                        ),
                       ),
                     );
                   }

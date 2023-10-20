@@ -1,4 +1,6 @@
 import 'package:expensee/features/auth/pin/pin_view.dart';
+import 'package:expensee/features/onBoarding/on_boarding_1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -9,13 +11,17 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  User? user;
+
   @override
   void initState() {
+    User? user = FirebaseAuth.instance.currentUser;
+
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const PinView(),
+          builder: (context) => user != null ? PinView() : const OnBoarding1(),
         ),
       );
     });

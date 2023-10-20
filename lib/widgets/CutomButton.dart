@@ -1,5 +1,9 @@
-import 'package:expensee/features/auth/signin/signin_view.dart';
-import 'package:expensee/features/auth/signup/signup_view.dart';
+import 'package:expensee/features/auth/signin/Presentation/bloc/login_bloc.dart';
+import 'package:expensee/features/auth/signin/Presentation/screens/signin_view.dart';
+import 'package:expensee/features/auth/signup/data/datasources/get_otp_remote_datasource.dart';
+import 'package:expensee/features/auth/signup/data/repositories/GetOtpRepositoryImple.dart';
+import 'package:expensee/features/auth/signup/presentation/bloc/get_otp_bloc.dart';
+import 'package:expensee/features/auth/signup/presentation/screen/signup_view.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -68,7 +72,9 @@ class ToSigninButton extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => SigninView(),
+            builder: (context) => SigninView(
+              loginBloc: LoginBloc(),
+            ),
           ),
         );
       },
@@ -96,7 +102,13 @@ class ToSignupButton extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => SignupView(),
+            builder: (context) => SignupView(
+              getOtpBloc: GetOtpBloc(
+                getOtpRepo: GetOtpRepositoryImple(
+                  remotedatasources: GetOtpRemoteDatasourceImpl(),
+                ),
+              ),
+            ),
           ),
         );
       },

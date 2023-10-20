@@ -1,9 +1,9 @@
-import 'package:expensee/features/onBoarding/on_boarding_1.dart';
+import 'package:expensee/widgets/bottom_navigatgion_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_lock_screen/pin_lock_screen.dart';
 
 class PinView extends StatelessWidget {
-  const PinView({super.key});
+  PinView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PinView extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const OnBoarding1(),
+                  builder: (context) => const BottomNavigatgionBarWidget(),
                 ),
               );
             },

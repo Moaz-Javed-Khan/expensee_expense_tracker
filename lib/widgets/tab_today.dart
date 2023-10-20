@@ -11,7 +11,7 @@ class TabToday extends StatefulWidget {
 class _TabTodayState extends State<TabToday> {
   @override
   Widget build(BuildContext context) {
-    return TransactionItemWidget(
+    return const TransactionItemWidget(
       image: "assets/googleIcon.png",
       title: "Shopping",
       subtitle: "Buy some grocery",

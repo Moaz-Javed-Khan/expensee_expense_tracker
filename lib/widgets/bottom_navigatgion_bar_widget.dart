@@ -30,6 +30,8 @@ class _BottomNavigatgionBarWidgetState
 
     notificationServices.setupInteractMessage(context);
 
+    notificationServices.forgroundMessage();
+
     // notificationServices.isTokenRefreshed();
 
     notificationServices.getDeviceToken().then(
@@ -114,7 +116,15 @@ class _BottomNavigatgionBarWidgetState
         children: [
           ActionButton(
             onPressed: () => _showAction(context, 0),
-            icon: const Icon(Icons.wallet),
+            icon: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.arrow_downward_rounded),
+                Icon(Icons.wallet),
+              ],
+            ),
           ),
           ActionButton(
             onPressed: () => _showAction(context, 1),
@@ -122,7 +132,15 @@ class _BottomNavigatgionBarWidgetState
           ),
           ActionButton(
             onPressed: () => _showAction(context, 2),
-            icon: const Icon(Icons.wallet),
+            icon: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.arrow_upward_rounded),
+                Icon(Icons.wallet),
+              ],
+            ),
           ),
         ],
       ),

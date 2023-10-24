@@ -87,7 +87,7 @@ class NotificationServices {
     AndroidNotificationChannel channel = AndroidNotificationChannel(
       Random.secure().nextInt(100000).toString(),
       "High Importance Notifications",
-      importance: Importance.max,
+      importance: Importance.high, // max
     );
 
     AndroidNotificationDetails androidNotificationDetails =
@@ -144,5 +144,14 @@ class NotificationServices {
         ),
       );
     }
+  }
+
+  Future forgroundMessage() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
   }
 }

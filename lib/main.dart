@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 // import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -18,6 +19,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessageingBackgroundHandler);
+
+  Stripe.publishableKey =
+      'pk_test_51O4h5dI6fkbmsqprxRlQRFiyTGjLbIVXxWM3YLqXetrGGQvTknqLq8XbtdIdXJKr2KsARZkkJOV4LnWHyfDqTdVS00xiiGCGx5';
 
   runApp(const MyApp());
 }

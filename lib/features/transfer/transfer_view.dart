@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:expensee/widgets/CutomButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
+// import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 
 class TransferView extends StatefulWidget {
   const TransferView({super.key});
@@ -12,6 +17,8 @@ class _TransferViewState extends State<TransferView> {
   TextEditingController descriptionController = TextEditingController();
 
   bool isRepeat = false;
+
+  Map<String, dynamic>? paymentIntentData;
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +188,9 @@ class _TransferViewState extends State<TransferView> {
                           fontSize: 16,
                         ),
                       ),
-                      onClick: () {},
+                      onClick: () async {
+                        await makePayment();
+                      },
                       color: Colors.deepPurpleAccent,
                     ),
                     const SizedBox(height: 12),
@@ -193,5 +202,82 @@ class _TransferViewState extends State<TransferView> {
         ),
       ),
     );
+  }
+
+  Future<void> makePayment() async {
+    try {
+      paymentIntentData = await createPaymentIntent("20", "USD");
+      await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+        paymentIntentClientSecret: paymentIntentData!['client_secret'],
+        // applePay: true,
+        // googlePay: true,
+        customFlow: true,
+        style: ThemeMode.dark,
+        merchantDisplayName: 'Moaz',
+      ));
+
+      displayPaymentSheet();
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.presentPaymentSheet().then((newValue) {
+        print('payment intent${paymentIntentData!['id']}');
+        print('payment intent${paymentIntentData!['client_secret']}');
+        print('payment intent${paymentIntentData!['amount']}');
+        print('payment intent$paymentIntentData');
+        //orderPlaceApi(paymentIntentData!['id'].toString());
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Paid successfully"),
+          ),
+        );
+
+        paymentIntentData = null;
+      }).onError((error, stackTrace) {
+        print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
+      });
+    } on StripeException catch (e) {
+      print('Exception/DISPLAYPAYMENTSHEET==> $e');
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                content: Text("Cancelled "),
+              ));
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  createPaymentIntent(String amount, String currency) async {
+    try {
+      Map<String, dynamic> body = {
+        'amount': calculateAmount(amount),
+        'currency': currency,
+        'payment_method_types[]': 'card'
+      };
+
+      var response = await http.post(
+          Uri.parse('https://api.stripe.com/v1/payment_intents'),
+          body: body,
+          headers: {
+            'Authorization': 'Bearer '
+                'sk_test_51O4h5dI6fkbmsqpruQwnKB7SVZlz11AwGb2DZceYMtIuw3SapqdhqzANeAWWeOonMl6Qsipnh6yyhbdZKSmue0ZM00d5twENuD',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+      return jsonDecode(response.body.toString());
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  calculateAmount(String amount) {
+    final price = int.parse(amount) * 100;
+    return price.toString();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:expensee/features/notification/notification_view.dart';
 import 'package:expensee/widgets/months_dropdown_widget.dart';
 import 'package:expensee/widgets/line_chart_view.dart';
 import 'package:expensee/widgets/transaction_item_widget.dart';
@@ -89,7 +90,14 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     ),
                     const MonthsDropDownWidget(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationView(),
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.notifications,
                         color: Colors.deepPurpleAccent,

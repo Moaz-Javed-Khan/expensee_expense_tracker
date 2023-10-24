@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:expensee/Core/notification_services.dart';
 import 'package:expensee/features/expense/expense_view.dart';
 import 'package:expensee/features/home/home_view.dart';
 import 'package:expensee/features/income/income_view.dart';
@@ -17,14 +18,29 @@ class BottomNavigatgionBarWidget extends StatefulWidget {
 
 class _BottomNavigatgionBarWidgetState
     extends State<BottomNavigatgionBarWidget> {
+  NotificationServices notificationServices = NotificationServices();
+
+  @override
+  void initState() {
+    super.initState();
+
+    notificationServices.requestNotificationPermission();
+
+    notificationServices.firebaseInit(context);
+
+    notificationServices.setupInteractMessage(context);
+
+    // notificationServices.isTokenRefreshed();
+
+    notificationServices.getDeviceToken().then(
+          (value) => print("Device Token: $value"),
+        );
+  }
+
   static const List<Widget> _screens = <Widget>[
     HomeView(),
-    Text(
-      'Transactions',
-    ),
-    Text(
-      'Pie Charts',
-    ),
+    Text('Transactions'),
+    Text('Pie Charts'),
     ProfileVIew(),
   ];
 
@@ -93,6 +109,7 @@ class _BottomNavigatgionBarWidgetState
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: ExpandableFab(
+        initialOpen: false,
         distance: 100,
         children: [
           ActionButton(

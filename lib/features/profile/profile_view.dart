@@ -1,3 +1,4 @@
+import 'package:expensee/Utils/dynamic_link.dart';
 import 'package:expensee/features/auth/signin/Presentation/bloc/login_bloc.dart';
 import 'package:expensee/features/auth/signin/Presentation/screens/signin_view.dart';
 import 'package:expensee/features/exportData/presentation/export_data.dart';
@@ -5,6 +6,7 @@ import 'package:expensee/widgets/CutomButton.dart';
 import 'package:expensee/widgets/settings_item_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfileVIew extends StatefulWidget {
   const ProfileVIew({super.key});
@@ -117,6 +119,26 @@ class _ProfileVIewState extends State<ProfileVIew> {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 12.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    DynamicLinkProvider().createLink("myRef123").then(
+                      (value) {
+                        Share.share(value);
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.share_rounded,
+                    size: 20,
+                  ),
+                ),
+                const Text("Share this App"),
+              ],
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:expensee/features/expense/expense_view.dart';
 import 'package:expensee/features/home/home_view.dart';
 import 'package:expensee/features/income/income_view.dart';
 import 'package:expensee/features/profile/profile_view.dart';
+import 'package:expensee/features/transaction/transaction_view.dart';
 import 'package:expensee/features/transfer/transfer_view.dart';
 import 'package:expensee/widgets/expandable_fab.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _BottomNavigatgionBarWidgetState
 
   static const List<Widget> _screens = <Widget>[
     HomeView(),
-    Text('Transactions'),
+    TransactionView(),
     Text('Pie Charts'),
     ProfileVIew(),
   ];
@@ -61,7 +62,7 @@ class _BottomNavigatgionBarWidgetState
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ExpenseView(),
+          builder: (context) => const IncomeView(),
         ),
       );
     }
@@ -69,7 +70,7 @@ class _BottomNavigatgionBarWidgetState
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const IncomeView(),
+          builder: (context) => const TransferView(),
         ),
       );
     }
@@ -77,7 +78,7 @@ class _BottomNavigatgionBarWidgetState
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const TransferView(),
+          builder: (context) => const ExpenseView(),
         ),
       );
     }
@@ -116,29 +117,39 @@ class _BottomNavigatgionBarWidgetState
         children: [
           ActionButton(
             onPressed: () => _showAction(context, 0),
-            icon: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+            icon: const Stack(
               children: [
-                Icon(Icons.arrow_downward_rounded),
                 Icon(Icons.wallet),
+                Positioned(
+                  top: -8,
+                  left: 2,
+                  child: Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 20,
+                  ),
+                ),
               ],
             ),
           ),
           ActionButton(
             onPressed: () => _showAction(context, 1),
-            icon: const Icon(Icons.circle_outlined),
+            icon: const ImageIcon(
+              AssetImage("assets/transfer.png"),
+            ),
           ),
           ActionButton(
             onPressed: () => _showAction(context, 2),
-            icon: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+            icon: const Stack(
               children: [
-                Icon(Icons.arrow_upward_rounded),
                 Icon(Icons.wallet),
+                Positioned(
+                  top: -8,
+                  left: 2,
+                  child: Icon(
+                    Icons.arrow_drop_up_sharp,
+                    size: 20,
+                  ),
+                ),
               ],
             ),
           ),

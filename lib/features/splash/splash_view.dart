@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:expensee/features/auth/pin/pin_view.dart';
 import 'package:expensee/features/onBoarding/on_boarding_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +17,8 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
+    // getRefData(context);
+
     User? user = FirebaseAuth.instance.currentUser;
 
     Future.delayed(const Duration(seconds: 2), () {
@@ -66,3 +70,18 @@ class _SplashViewState extends State<SplashView> {
     );
   }
 }
+
+// getRefData(BuildContext context) async {
+//   final data = await FirebaseDynamicLinks.instance.getInitialLink();
+//   final Uri deepLink = data!.link;
+//   deepLink.queryParameters['user'];
+
+//   deepLink.queryParameters['user'] != null
+//       ? ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text(deepLink.queryParameters['user']!),
+//             backgroundColor: Colors.blue,
+//           ),
+//         )
+//       : const SizedBox();
+// }
